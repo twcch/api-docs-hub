@@ -35,6 +35,9 @@
     forceTry: {},                     // 這次工作階段中「明知會被擋仍要試」的項目
   };
 
+  // 「可內嵌」篩選已移除；舊的 localStorage 值導回「全部」，免得清單整個空掉
+  if (state.cat === 'embed') { state.cat = 'all'; LS.set('cat', 'all'); }
+
   const frames = Object.create(null);
 
   const allItems = () => APIS.concat(state.custom);
@@ -178,7 +181,6 @@
 
     const items = [{ id: 'all', name: '全部', icon: '✦', n: allItems().length }];
     if (state.favs.length) items.push({ id: 'fav', name: '收藏', icon: '★', n: state.favs.length });
-    items.push({ id: 'embed', name: '可內嵌', icon: '🪟', n: allItems().filter(canEmbed).length });
     CATEGORIES.forEach((c) => { if (counts[c.id]) items.push({ id: c.id, name: c.name, icon: c.icon, n: counts[c.id] }); });
     if (state.custom.length) items.push({ id: 'custom', name: '我的收錄', icon: '🔖', n: state.custom.length });
 
@@ -210,8 +212,7 @@
     return allItems().filter((a) => {
       if (state.cat === 'fav' && !isFav(a.id)) return false;
       if (state.cat === 'custom' && !a.custom) return false;
-      if (state.cat === 'embed' && !canEmbed(a)) return false;
-      if (['all', 'fav', 'custom', 'embed'].indexOf(state.cat) === -1 && a.cat !== state.cat) return false;
+      if (['all', 'fav', 'custom'].indexOf(state.cat) === -1 && a.cat !== state.cat) return false;
       return matches(a, state.q);
     });
   }

@@ -107,6 +107,11 @@ const APIS = [
     desc: '讀取設計檔節點結構、匯出圖片與註解，適合做設計與程式的自動同步。',
     embed: false, url: 'https://www.figma.com/developers/api', site: 'https://www.figma.com' },
 
+  { id: 'java8', cat: 'dev', icon: '☕', name: 'Java SE 8 API 文件',
+    zh: 'Java 8 Javadoc', tags: ['Java', 'Javadoc', '標準函式庫'],
+    desc: 'Java SE 8 標準函式庫的官方 Javadoc，含 Stream、Optional 與 java.time 等套件。',
+    embed: true, url: 'https://docs.oracle.com/javase/8/docs/api/', site: 'https://www.oracle.com/java/' },
+
   /* ---------- 金流 ---------- */
   { id: 'stripe', cat: 'pay', icon: '💠', name: 'Stripe API',
     zh: 'Stripe 金流', tags: ['付款', '訂閱', 'Webhook'],

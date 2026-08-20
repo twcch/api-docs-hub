@@ -97,16 +97,6 @@ const APIS = [
     desc: '查詢與管理 Docker Hub 上的映像檔、標籤與儲存庫權限。',
     embed: false, url: 'https://docs.docker.com/reference/api/hub/latest/', site: 'https://hub.docker.com' },
 
-  { id: 'notion', cat: 'dev', icon: '📝', name: 'Notion API',
-    zh: 'Notion 整合 API', tags: ['資料庫', '頁面', 'OAuth'],
-    desc: '讀寫 Notion 頁面與資料庫，常用來把 Notion 當成輕量後台。',
-    embed: false, url: 'https://developers.notion.com/reference/intro', site: 'https://www.notion.so' },
-
-  { id: 'figma', cat: 'dev', icon: '🎨', name: 'Figma API',
-    zh: 'Figma 設計 API', tags: ['設計稿', 'Design Token', '匯出'],
-    desc: '讀取設計檔節點結構、匯出圖片與註解，適合做設計與程式的自動同步。',
-    embed: false, url: 'https://www.figma.com/developers/api', site: 'https://www.figma.com' },
-
   { id: 'java8', cat: 'dev', icon: '☕', name: 'Java SE 8 API 文件',
     zh: 'Java 8 Javadoc', tags: ['Java', 'Javadoc', '標準函式庫'],
     desc: 'Java SE 8 標準函式庫的官方 Javadoc，含 Stream、Optional 與 java.time 等套件。',

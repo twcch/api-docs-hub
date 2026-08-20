@@ -42,7 +42,7 @@
 
   const allItems = () => APIS.concat(state.custom);
   const byId = (id) => allItems().find((x) => x.id === id);
-  const catOf = (id) => CATEGORIES.find((c) => c.id === id) || { id: 'other', name: '其他', icon: '📄', accent: '#8b93a7' };
+  const catOf = (id) => CATEGORIES.find((c) => c.id === id) || { id: 'other', name: 'Other', icon: '📄', accent: '#8b93a7' };
   const isFav = (id) => state.favs.indexOf(id) > -1;
 
   // 能不能被放進 iframe，是由對方伺服器的回應標頭決定的（X-Frame-Options /
@@ -102,7 +102,7 @@
     el.root.dataset.layout = next;
     LS.set('layout', next);
     applyPaneSize(null);
-    toast(next === 'h' ? '已切換為左右分割' : '已切換為上下分割');
+    toast(next === 'h' ? 'Switched to side-by-side' : 'Switched to stacked');
   });
 
   function applyPaneSize(px) {
@@ -152,7 +152,7 @@
 
     el.gutter.addEventListener('dblclick', () => {
       applyPaneSize(el.root.dataset.layout === 'h' ? 320 : 300);
-      toast('已還原預設寬度');
+      toast('Reset to the default width');
     });
 
     // 鍵盤微調（無障礙）
@@ -169,7 +169,7 @@
 
   $('#wideBtn').addEventListener('click', () => {
     document.body.classList.toggle('wide');
-    toast(document.body.classList.contains('wide') ? '已隱藏左側清單' : '已顯示左側清單');
+    toast(document.body.classList.contains('wide') ? 'List hidden' : 'List shown');
   });
 
   /* ============================================================
@@ -179,10 +179,10 @@
     const counts = {};
     allItems().forEach((a) => { counts[a.cat] = (counts[a.cat] || 0) + 1; });
 
-    const items = [{ id: 'all', name: '全部', icon: '✦', n: allItems().length }];
-    if (state.favs.length) items.push({ id: 'fav', name: '收藏', icon: '★', n: state.favs.length });
+    const items = [{ id: 'all', name: 'All', icon: '✦', n: allItems().length }];
+    if (state.favs.length) items.push({ id: 'fav', name: 'Favorites', icon: '★', n: state.favs.length });
     CATEGORIES.forEach((c) => { if (counts[c.id]) items.push({ id: c.id, name: c.name, icon: c.icon, n: counts[c.id] }); });
-    if (state.custom.length) items.push({ id: 'custom', name: '我的收錄', icon: '🔖', n: state.custom.length });
+    if (state.custom.length) items.push({ id: 'custom', name: 'My List', icon: '🔖', n: state.custom.length });
 
     el.chips.innerHTML = items.map((c) => (
       '<button class="chip' + (state.cat === c.id ? ' on' : '') + '" data-cat="' + c.id + '">' +
@@ -221,8 +221,8 @@
     const a = byId(id);
     if (!a) return '';
     return canEmbed(a)
-      ? '<i class="bdg bdg--ok" title="這個站台允許內嵌，會直接顯示在右邊視窗">內嵌</i>'
-      : '<i class="bdg bdg--no" title="對方禁止內嵌，會改用獨立視窗或新分頁開啟">外開</i>';
+      ? '<i class="bdg bdg--ok" title="This site allows embedding and opens in the right-hand panel">Embed</i>'
+      : '<i class="bdg bdg--no" title="This site blocks embedding, so it opens in a popup or a new tab">External</i>';
   }
 
   function itemHTML(a) {
@@ -236,8 +236,8 @@
           '<span class="item__sub">' + esc(a.zh || a.desc || host(a.url)) + '</span>' +
         '</span>' +
         '<span class="item__acts">' +
-          '<button class="mini' + (isFav(a.id) ? ' on' : '') + '" data-fav="' + a.id + '" title="收藏" aria-label="收藏">★</button>' +
-          (a.custom ? '<button class="mini" data-del="' + a.id + '" title="移除自訂項目" aria-label="移除">✕</button>' : '') +
+          '<button class="mini' + (isFav(a.id) ? ' on' : '') + '" data-fav="' + a.id + '" title="Favorite" aria-label="Favorite">★</button>' +
+          (a.custom ? '<button class="mini" data-del="' + a.id + '" title="Remove custom entry" aria-label="Remove">✕</button>' : '') +
         '</span>' +
       '</a>';
   }
@@ -249,12 +249,12 @@
     if (!items.length) {
       el.list.innerHTML = '<div class="empty">' +
         '<div class="empty__i">🔍</div>' +
-        '<p>找不到符合「' + esc(state.q) + '」的文件</p>' +
-        '<button class="btn" id="emptyAdd">＋ 把它加進收錄清單</button>' +
+        '<p>No documents match “' + esc(state.q) + '”</p>' +
+        '<button class="btn" id="emptyAdd">＋ Add it to the list</button>' +
       '</div>';
       const ea = $('#emptyAdd');
       if (ea) ea.addEventListener('click', () => openAdd(state.q));
-      el.footStat.textContent = '0 筆結果';
+      el.footStat.textContent = '0 results';
       return;
     }
 
@@ -265,7 +265,7 @@
       html = items.map(itemHTML).join('');
     } else {
       const groups = CATEGORIES.slice();
-      if (state.custom.length) groups.push({ id: '__custom', name: '我的收錄', icon: '🔖', accent: '#8b93a7' });
+      if (state.custom.length) groups.push({ id: '__custom', name: 'My List', icon: '🔖', accent: '#8b93a7' });
       groups.forEach((c) => {
         const sub = items.filter((a) => (c.id === '__custom' ? a.custom : (a.cat === c.id && !a.custom)));
         if (!sub.length) return;
@@ -276,7 +276,7 @@
 
     el.list.innerHTML = html;
     el.list.scrollTop = keepScroll;
-    el.footStat.textContent = items.length + ' 筆文件' + (state.favs.length ? ' · ' + state.favs.length + ' 個收藏' : '');
+    el.footStat.textContent = items.length + ' documents' + (state.favs.length ? ' · ' + state.favs.length + ' favorites' : '');
   }
 
   el.list.addEventListener('click', (e) => {
@@ -312,17 +312,17 @@
     LS.set('favs', state.favs);
     if (state.cat === 'fav' && !state.favs.length) state.cat = 'all';
     renderChips(); renderList(); syncViewBar();
-    toast(i > -1 ? '已取消收藏' : '已加入收藏 ★');
+    toast(i > -1 ? 'Removed from favorites' : 'Added to favorites ★');
   }
 
   function removeCustom(id) {
     const it = byId(id);
-    if (!it || !confirm('確定要從清單移除「' + it.name + '」嗎？')) return;
+    if (!it || !confirm('Remove “' + it.name + '” from the list?')) return;
     state.custom = state.custom.filter((x) => x.id !== id);
     LS.set('custom', state.custom);
     closeTab(id, true);
     renderChips(); renderList();
-    toast('已移除');
+    toast('Removed');
   }
 
   /* ============================================================
@@ -338,9 +338,9 @@
              'style="--accent:' + (a.accent || c.accent) + '" title="' + esc(a.name) + '">' +
                '<span class="dtab__i">' + esc(a.icon || c.icon) + '</span>' +
                '<span class="dtab__n">' + esc(a.name) + '</span>' +
-               '<span class="dtab__x" data-close="' + id + '" role="button" aria-label="關閉">✕</span>' +
+               '<span class="dtab__x" data-close="' + id + '" role="button" aria-label="Close">✕</span>' +
              '</button>';
-    }).join('') + '<button class="dtab dtab--add" id="tabAdd" title="開啟其他文件（⌘K）">＋</button>';
+    }).join('') + '<button class="dtab dtab--add" id="tabAdd" title="Open another document (⌘K)">＋</button>';
   }
 
   el.docTabs.addEventListener('click', (e) => {
@@ -428,7 +428,7 @@
     } else {
       renderTabs();
     }
-    if (!silent) toast('已關閉分頁');
+    if (!silent) toast('Tab closed');
   }
 
   function syncViewBar() {
@@ -443,8 +443,8 @@
     $('#openBtn').href = a.url;
     $('#favBtn').classList.toggle('on', isFav(a.id));
     $('#markBtn').title = canEmbed(a)
-      ? '目前標記為「可內嵌」— 點一下改成不可內嵌'
-      : '目前標記為「不可內嵌」— 點一下改成可內嵌';
+      ? 'Currently marked embeddable — click to mark it as not embeddable'
+      : 'Currently marked not embeddable — click to mark it as embeddable';
   }
 
   $('#favBtn').addEventListener('click', () => { if (state.active) toggleFav(state.active); });
@@ -453,7 +453,7 @@
     destroyFrame(a.id);
     if (canEmbed(a) || state.forceTry[a.id]) createFrame(a);
     updateOverlay();
-    toast('重新載入中…');
+    toast('Reloading…');
   });
 
   // 被擋內嵌時的替代方案：開一個尺寸剛好、可以跟本頁並排的獨立視窗
@@ -478,7 +478,7 @@
     destroyFrame(a.id);
     if (next) createFrame(a);
     renderList(); syncViewBar(); updateOverlay();
-    toast(next ? '已標記為「可內嵌」，直接載入看看' : '已標記為「不可內嵌」，改用外開');
+    toast(next ? 'Marked embeddable — trying to load it' : 'Marked not embeddable — will open externally');
   });
 
   /* ---------- 無法內嵌時的替代畫面 ---------- */
@@ -494,13 +494,13 @@
         '<h3 id="boTitle"></h3>' +
         '<p id="boText"></p>' +
         '<div class="blocked__acts">' +
-          '<button class="btn btn--accent" id="boPop">開成獨立視窗並排看</button>' +
-          '<a class="btn" id="boOpen" target="_blank" rel="noopener">新分頁開啟 ↗</a>' +
+          '<button class="btn btn--accent" id="boPop">Open in a side-by-side window</button>' +
+          '<a class="btn" id="boOpen" target="_blank" rel="noopener">Open in a new tab ↗</a>' +
         '</div>' +
-        '<button class="btn btn--ghost" id="boTry">還是要試著載入看看</button>' +
-        '<p class="blocked__fine">這是對方伺服器用 <b>X-Frame-Options</b> 或 <b>CSP frame-ancestors</b> 設定的，' +
-        '屬於瀏覽器層級的安全限制，任何前端寫法都無法繞過。<br>' +
-        '若對方之後改了設定，可以用工具列的 <b>⇄</b> 按鈕手動改成「可內嵌」。</p>' +
+        '<button class="btn btn--ghost" id="boTry">Try loading it anyway</button>' +
+        '<p class="blocked__fine">This is set by their server through <b>X-Frame-Options</b> or <b>CSP frame-ancestors</b>. ' +
+        'It is a browser-level security restriction that no front-end code can work around.<br>' +
+        'If they change the setting later, use the <b>⇄</b> button in the toolbar to mark it embeddable by hand.</p>' +
       '</div>';
     el.stage.appendChild(o);
 
@@ -520,9 +520,9 @@
     const show = !!a && !canEmbed(a) && !state.forceTry[a.id];
     o.classList.toggle('on', show);
     if (!show || !a) return;
-    $('#boTitle').textContent = '「' + a.name + '」不允許被內嵌';
-    $('#boText').innerHTML = '<b>' + esc(host(a.url)) + '</b> 在 HTTP 回應標頭裡明確拒絕被放進別人的頁面，' +
-      '所以右邊這塊區域載不出它的內容。建議開成獨立視窗，就能跟這裡並排對照著看。';
+    $('#boTitle').textContent = '“' + a.name + '” does not allow embedding';
+    $('#boText').innerHTML = '<b>' + esc(host(a.url)) + '</b> explicitly refuses to be placed inside another page via its HTTP response headers, ' +
+      'so this panel cannot load its content. Open it in a separate window to read it side by side with this page.';
     $('#boOpen').href = a.url;
   }
 
@@ -549,7 +549,7 @@
     pSel = 0;
 
     if (!pRes.length) {
-      el.paletteList.innerHTML = '<div class="palette__empty">沒有符合的文件<br><span>試試別的關鍵字，或用右上角「＋」加入新的文件連結</span></div>';
+      el.paletteList.innerHTML = '<div class="palette__empty">No matching documents<br><span>Try a different keyword, or use the ＋ button at the top right to add a new doc link</span></div>';
       return;
     }
     el.paletteList.innerHTML = pRes.map((a, i) => {
@@ -636,7 +636,7 @@
       name: $('#fName').value.trim(),
       zh: '',
       desc: $('#fDesc').value.trim() || host(url),
-      tags: ['自訂'],
+      tags: ['Custom'],
       url: url,
       site: url,
       custom: true,
@@ -646,7 +646,7 @@
     closeAdd();
     renderChips(); renderList();
     openDoc(item.id);
-    toast('已加入「' + item.name + '」');
+    toast('Added “' + item.name + '”');
   });
 
   /* ============================================================
@@ -685,9 +685,9 @@
     const all = allItems();
     const n = all.filter(canEmbed).length;
     $('#welcomeStat').innerHTML =
-      '<span><b>' + all.length + '</b> 份文件</span>' +
-      '<span><b>' + n + '</b> 份可直接內嵌</span>' +
-      '<span><b>' + (all.length - n) + '</b> 份官方禁止內嵌，一鍵開成並排視窗</span>';
+      '<span><b>' + all.length + '</b> documents</span>' +
+      '<span><b>' + n + '</b> embed directly</span>' +
+      '<span><b>' + (all.length - n) + '</b> block embedding — one click opens them side by side</span>';
 
     // 只放實測可以內嵌的，讓第一次點下去就直接看到內容
     const picks = ['line', 'gitlab', 'ecpay', 'owm', 'jsonplaceholder', 'pokeapi', 'twilio', 'twitch']
@@ -726,7 +726,7 @@
     });
 
     if (location.protocol === 'file:') {
-      setTimeout(() => toast('提示：用本機伺服器開啟（例如 python3 -m http.server）內嵌成功率更高'), 1200);
+      setTimeout(() => toast('Tip: serving this over a local server (e.g. python3 -m http.server) makes embedding work more often'), 1200);
     }
   }
 

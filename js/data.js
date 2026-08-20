@@ -16,6 +16,7 @@ const CATEGORIES = [
   { id: 'ai',    name: 'Data Science',    icon: '🧠', accent: '#8b7cff' },
   { id: 'dev',   name: 'Web Development',  icon: '⚙️', accent: '#5fb3f5' },
   { id: 'database', name: 'Databases',     icon: '🛢️', accent: '#f2a35e' },
+  { id: 'other', name: 'Other',        icon: '📄', accent: '#8b93a7' },
   // { id: 'pay',   name: 'Payments',              icon: '💳', accent: '#5ac8a8' },
   // { id: 'msg',   name: 'Messaging & Social',    icon: '💬', accent: '#4ecb71' },
   // { id: 'geo',   name: 'Maps, Weather & Location', icon: '🗺️', accent: '#54c7d8' },

@@ -26,98 +26,38 @@ const CATEGORIES = [
 
 const APIS = [
   /* ---------- AI ---------- */
-  { id: 'anthropic', cat: 'ai', icon: '🅰️', name: 'Anthropic Claude API',
-    zh: 'Claude 模型 API', tags: ['LLM', 'Messages', 'Tool Use'],
-    desc: 'Claude 系列模型的官方 API，走 /v1/messages 端點，支援工具呼叫、串流與提示快取。',
-    embed: false, url: 'https://docs.claude.com/en/api/overview', site: 'https://www.anthropic.com' },
-
-  { id: 'openai', cat: 'ai', icon: '🤖', name: 'OpenAI API',
-    zh: 'OpenAI 平台 API', tags: ['LLM', 'Embedding', 'Whisper'],
-    desc: '聊天補全、嵌入向量、影像與語音等一整套模型端點的參考文件。',
-    embed: false, url: 'https://platform.openai.com/docs/api-reference', site: 'https://openai.com' },
-
-  { id: 'gemini', cat: 'ai', icon: '✦', name: 'Google Gemini API',
-    zh: 'Gemini 模型 API', tags: ['LLM', '多模態', 'Google AI'],
-    desc: 'Google AI Studio 提供的 Gemini 模型 API，原生支援文字、影像、影片與音訊輸入。',
-    embed: false, url: 'https://ai.google.dev/api', site: 'https://ai.google.dev' },
-
-  { id: 'huggingface', cat: 'ai', icon: '🤗', name: 'Hugging Face Inference API',
-    zh: 'Hugging Face 推論 API', tags: ['開源模型', '推論', 'Hub'],
+  { id: 'huggingface', cat: 'ai', icon: '🤗', name: 'Hugging Face API',
+    zh: 'Hugging Face API', tags: ['開源模型', 'Hub'],
     desc: '直接呼叫 Hub 上數十萬個開源模型做推論，也能查詢模型與資料集資訊。',
-    embed: false, url: 'https://huggingface.co/docs/api-inference/index', site: 'https://huggingface.co' },
+    embed: false, url: 'https://huggingface.co/docs/', site: 'https://huggingface.co' },
 
-  { id: 'groq', cat: 'ai', icon: '⚡', name: 'Groq API',
-    zh: 'Groq 高速推論', tags: ['LLM', '低延遲', 'OpenAI 相容'],
-    desc: 'LPU 硬體加速的推論服務，介面與 OpenAI 相容，主打極低延遲。',
-    embed: false, url: 'https://console.groq.com/docs/api-reference', site: 'https://groq.com' },
-
-  { id: 'mistral', cat: 'ai', icon: '🌬️', name: 'Mistral AI API',
-    zh: 'Mistral API', tags: ['LLM', '歐洲', 'Function Calling'],
-    desc: 'Mistral 系列模型的雲端 API，含聊天、嵌入與 OCR 等端點。',
-    embed: false, url: 'https://docs.mistral.ai/api/', site: 'https://mistral.ai' },
-
-  { id: 'replicate', cat: 'ai', icon: '🔁', name: 'Replicate HTTP API',
-    zh: 'Replicate 模型託管', tags: ['影像生成', '模型託管', 'Webhook'],
-    desc: '用一組 HTTP 端點跑社群上的開源模型，適合影像、影片與音訊生成。',
-    embed: false, url: 'https://replicate.com/docs/reference/http', site: 'https://replicate.com' },
-
-  { id: 'ollama', cat: 'ai', icon: '🦙', name: 'Ollama REST API',
+  { id: 'ollama', cat: 'ai', icon: '🦙', name: 'Ollama API',
     zh: 'Ollama 本機模型', tags: ['本機部署', 'localhost', '開源'],
     desc: '在自己電腦上跑模型時使用的本機 REST 介面，預設監聽 11434 埠。',
-    embed: false, url: 'https://github.com/ollama/ollama/blob/main/docs/api.md', site: 'https://ollama.com' },
+    embed: false, url: 'https://docs.ollama.com/api/', site: 'https://ollama.com' },
 
   /* ---------- 開發者平台 ---------- */
-  { id: 'github', cat: 'dev', icon: '🐙', name: 'GitHub REST API',
-    zh: 'GitHub REST', tags: ['Repo', 'Actions', 'Webhook'],
-    desc: '操作儲存庫、Issue、PR、Actions 與組織設定的完整 REST 端點。',
-    embed: false, url: 'https://docs.github.com/en/rest', site: 'https://github.com' },
-
-  { id: 'gitlab', cat: 'dev', icon: '🦊', name: 'GitLab REST API',
-    zh: 'GitLab API', tags: ['CI/CD', 'DevOps', 'Self-host'],
-    desc: 'GitLab 專案、流水線、合併請求與使用者管理的 API 參考。',
-    embed: true, url: 'https://docs.gitlab.com/api/rest/', site: 'https://gitlab.com' },
-
-  { id: 'vercel', cat: 'dev', icon: '▲', name: 'Vercel REST API',
-    zh: 'Vercel 部署 API', tags: ['部署', '網域', '環境變數'],
-    desc: '以程式建立部署、管理專案網域與環境變數，可串進自己的 CI 流程。',
-    embed: false, url: 'https://vercel.com/docs/rest-api', site: 'https://vercel.com' },
-
-  { id: 'netlify', cat: 'dev', icon: '🌐', name: 'Netlify API',
-    zh: 'Netlify API', tags: ['靜態網站', '部署', 'Forms'],
-    desc: '站台建立、部署上傳、表單資料讀取等操作的 REST 介面。',
-    embed: true, url: 'https://docs.netlify.com/api/get-started/', site: 'https://www.netlify.com' },
-
-  { id: 'npm', cat: 'dev', icon: '📦', name: 'npm Registry API',
-    zh: 'npm 套件登錄', tags: ['套件', '版本', '免金鑰'],
-    desc: '查詢套件中繼資料、版本列表與下載量統計，多數端點免驗證。',
-    embed: false, url: 'https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md', site: 'https://www.npmjs.com' },
-
-  { id: 'dockerhub', cat: 'dev', icon: '🐳', name: 'Docker Hub API',
-    zh: 'Docker Hub', tags: ['容器', '映像檔', 'Registry'],
-    desc: '查詢與管理 Docker Hub 上的映像檔、標籤與儲存庫權限。',
-    embed: false, url: 'https://docs.docker.com/reference/api/hub/latest/', site: 'https://hub.docker.com' },
-
-  { id: 'java8', cat: 'dev', icon: '☕', name: 'Java SE 8 API 文件',
+  { id: 'java8', cat: 'dev', icon: '☕', name: 'Java SE 8 API',
     zh: 'Java 8 Javadoc', tags: ['Java', 'Javadoc', '標準函式庫'],
     desc: 'Java SE 8 標準函式庫的官方 Javadoc，含 Stream、Optional 與 java.time 等套件。',
     embed: true, url: 'https://docs.oracle.com/javase/8/docs/api/', site: 'https://www.oracle.com/java/' },
 
-  { id: 'java11', cat: 'dev', icon: '☕', name: 'Java SE 11 API 文件',
+  { id: 'java11', cat: 'dev', icon: '☕', name: 'Java SE 11 API',
     zh: 'Java 11 Javadoc', tags: ['Java', 'LTS', 'HttpClient'],
     desc: '第一個被廣泛採用的 LTS 版本，內建 java.net.http 的 HttpClient 取代舊的 HttpURLConnection。',
     embed: true, url: 'https://docs.oracle.com/en/java/javase/11/docs/api/index.html', site: 'https://www.oracle.com/java/' },
 
-  { id: 'java17', cat: 'dev', icon: '☕', name: 'Java SE 17 API 文件',
+  { id: 'java17', cat: 'dev', icon: '☕', name: 'Java SE 17 API',
     zh: 'Java 17 Javadoc', tags: ['Java', 'LTS', 'Record'],
     desc: '目前企業環境最常見的 LTS 版本，含 record、sealed 類別與強化版 switch 相關 API。',
     embed: true, url: 'https://docs.oracle.com/en/java/javase/17/docs/api/index.html', site: 'https://www.oracle.com/java/' },
 
-  { id: 'java21', cat: 'dev', icon: '☕', name: 'Java SE 21 API 文件',
+  { id: 'java21', cat: 'dev', icon: '☕', name: 'Java SE 21 API',
     zh: 'Java 21 Javadoc', tags: ['Java', 'LTS', '虛擬執行緒'],
     desc: '較新的 LTS 版本，虛擬執行緒與 SequencedCollection 等新標準 API 都在這一版。',
     embed: true, url: 'https://docs.oracle.com/en/java/javase/21/docs/api/index.html', site: 'https://www.oracle.com/java/' },
 
-  { id: 'python', cat: 'dev', icon: '🐍', name: 'Python 標準函式庫',
+  { id: 'python', cat: 'dev', icon: '🐍', name: 'Python 3.11 API',
     zh: 'Python 3.11 官方文件', tags: ['Python', '標準函式庫', '內建模組'],
     desc: 'Python 3.11 內建模組的官方參考，型別、檔案 IO、並行與網路模組都收在這裡。',
     embed: true, url: 'https://docs.python.org/3.11/library/index.html', site: 'https://www.python.org' },
@@ -132,10 +72,10 @@ const APIS = [
     desc: 'Flask 的 API 參考，涵蓋 app、request、blueprint 與 context 相關物件。',
     embed: true, url: 'https://flask.palletsprojects.com/en/stable/api/', site: 'https://flask.palletsprojects.com' },
 
-  { id: 'django', cat: 'dev', icon: '🎸', name: 'Django API Reference',
+  { id: 'django', cat: 'dev', icon: '🎸', name: 'Django 6.1 API Reference',
     zh: 'Django 文件', tags: ['Python', 'ORM', '全功能框架'],
     desc: 'Django 各模組的參考文件，含 ORM 查詢、表單、模板標籤與 settings 設定項。',
-    embed: false, url: 'https://docs.djangoproject.com/en/stable/ref/', site: 'https://www.djangoproject.com' },
+    embed: false, url: 'https://docs.djangoproject.com/en/6.1/ref/', site: 'https://www.djangoproject.com' },
 
   /* ---------- 金流 ---------- */
   { id: 'stripe', cat: 'pay', icon: '💠', name: 'Stripe API',
@@ -338,11 +278,6 @@ const APIS = [
     zh: 'HTTP 測試工具', tags: ['除錯', '回音服務', '狀態碼'],
     desc: '把你送出的請求原封不動回傳，測 header、狀態碼與延遲很好用。',
     embed: true, url: 'https://httpbin.org/', site: 'https://httpbin.org' },
-
-  { id: 'pokeapi', cat: 'tool', icon: '⚪', name: 'PokéAPI',
-    zh: '寶可夢 API', tags: ['免金鑰', '教學', '大量資料'],
-    desc: '完整的寶可夢資料集，常被拿來當串接練習與分頁教材。',
-    embed: true, url: 'https://pokeapi.co/docs/v2', site: 'https://pokeapi.co' },
 
   { id: 'petstore', cat: 'tool', icon: '🐾', name: 'Swagger Petstore',
     zh: 'OpenAPI 範例', tags: ['OpenAPI', '規格範例', '可試打'],

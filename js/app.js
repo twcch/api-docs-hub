@@ -266,8 +266,15 @@
     } else {
       const groups = CATEGORIES.slice();
       if (state.custom.length) groups.push({ id: '__custom', name: 'My List', icon: '🔖', accent: '#8b93a7' });
+      // 收藏的項目從原本的分類抽出來，獨立一組釘在最上面（不重複列出）
+      if (state.favs.length) groups.unshift({ id: '__fav', name: 'Favorites', icon: '★', accent: '#f0b840' });
+
       groups.forEach((c) => {
-        const sub = items.filter((a) => (c.id === '__custom' ? a.custom : (a.cat === c.id && !a.custom)));
+        const sub = items.filter((a) => {
+          if (c.id === '__fav') return isFav(a.id);
+          if (isFav(a.id)) return false;
+          return c.id === '__custom' ? a.custom : (a.cat === c.id && !a.custom);
+        });
         if (!sub.length) return;
         html += '<div class="ghead"><span>' + c.icon + '</span>' + esc(c.name) + '<b>' + sub.length + '</b></div>';
         html += sub.map(itemHTML).join('');

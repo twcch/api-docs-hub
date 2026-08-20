@@ -547,8 +547,9 @@ body.wide .pane--list, body.wide .gutter { display: none; }
 .modal__body { padding: 4px 16px 8px; display: grid; gap: 12px; }
 .field { display: grid; gap: 6px; min-width: 0; }
 .field > span { font-size: 11.5px; color: var(--text-3); }
-.field > span i { font-style: normal; opacity: .7; }
+.field > span i { font-style: normal; opacity: .7; margin-left: 4px; }
 .field input, .field select {
+  width: 100%; min-width: 0;
   height: 36px; padding: 0 11px;
   border: 1px solid var(--border); border-radius: 9px;
   background: var(--bg-2); outline: none; font-size: 13.2px;

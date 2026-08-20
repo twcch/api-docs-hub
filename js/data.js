@@ -13,8 +13,8 @@
    ============================================================ */
 
 const CATEGORIES = [
-  { id: 'ai',    name: '人工智慧', icon: '🧠', accent: '#8b7cff' },
-  { id: 'dev',   name: '開發平台',        icon: '⚙️', accent: '#5fb3f5' },
+  { id: 'ai',    name: '資料科學', icon: '🧠', accent: '#8b7cff' },
+  { id: 'dev',   name: '網站開發',        icon: '⚙️', accent: '#5fb3f5' },
   { id: 'pay',   name: '金流與支付',        icon: '💳', accent: '#5ac8a8' },
   { id: 'msg',   name: '通訊與社群',        icon: '💬', accent: '#4ecb71' },
   { id: 'cloud', name: '雲端與資料庫',      icon: '☁️', accent: '#f2a35e' },
@@ -26,15 +26,10 @@ const CATEGORIES = [
 
 const APIS = [
   /* ---------- AI ---------- */
-  { id: 'huggingface', cat: 'ai', icon: '🤗', name: 'Hugging Face API',
-    zh: 'Hugging Face API', tags: ['開源模型', 'Hub'],
-    desc: '直接呼叫 Hub 上數十萬個開源模型做推論，也能查詢模型與資料集資訊。',
-    embed: false, url: 'https://huggingface.co/docs/', site: 'https://huggingface.co' },
-
-  { id: 'ollama', cat: 'ai', icon: '🦙', name: 'Ollama API',
-    zh: 'Ollama 本機模型', tags: ['本機部署', 'localhost', '開源'],
-    desc: '在自己電腦上跑模型時使用的本機 REST 介面，預設監聽 11434 埠。',
-    embed: false, url: 'https://docs.ollama.com/api/', site: 'https://ollama.com' },
+  { id: 'sklearn', cat: 'ai', icon: '🧮', name: 'scikit-learn API',
+    zh: 'scikit-learn 機器學習', tags: ['Python', '機器學習', 'Estimator'],
+    desc: '傳統機器學習的標準工具箱，分類、迴歸、分群與前處理都走同一套 fit/predict 介面。',
+    embed: true, url: 'https://scikit-learn.org/stable/api/index.html', site: 'https://scikit-learn.org' },
 
   { id: 'pytorch', cat: 'ai', icon: '🔥', name: 'PyTorch API',
     zh: 'PyTorch 深度學習', tags: ['Python', '深度學習', 'Tensor'],
@@ -46,15 +41,25 @@ const APIS = [
     desc: 'tf 命名空間下所有模組與 Keras 高階介面的 Python API 文件。',
     embed: false, url: 'https://www.tensorflow.org/api_docs/python/tf', site: 'https://www.tensorflow.org' },
 
-  { id: 'sklearn', cat: 'ai', icon: '🧮', name: 'scikit-learn API',
-    zh: 'scikit-learn 機器學習', tags: ['Python', '機器學習', 'Estimator'],
-    desc: '傳統機器學習的標準工具箱，分類、迴歸、分群與前處理都走同一套 fit/predict 介面。',
-    embed: true, url: 'https://scikit-learn.org/stable/api/index.html', site: 'https://scikit-learn.org' },
+  { id: 'langchain', cat: 'ai', icon: '🦜', name: 'LangChain Docs',
+    zh: 'LangChain 參考文件', tags: ['LLM', 'Chain', 'Agent'],
+    desc: '把 LLM 串成鏈與代理人的框架，這頁是各套件模組與類別的完整 API 索引。',
+    embed: false, url: 'https://docs.langchain.com/oss/python/langchain/', site: 'https://www.langchain.com' },
+
+  { id: 'huggingface', cat: 'ai', icon: '🤗', name: 'HuggingFace Docs',
+    zh: 'Hugging Face API', tags: ['開源模型', 'Hub'],
+    desc: '直接呼叫 Hub 上數十萬個開源模型做推論，也能查詢模型與資料集資訊。',
+    embed: false, url: 'https://huggingface.co/docs/', site: 'https://huggingface.co' },
+
+  { id: 'ollama', cat: 'ai', icon: '🦙', name: 'Ollama API',
+    zh: 'Ollama 本機模型', tags: ['本機部署', 'localhost', '開源'],
+    desc: '在自己電腦上跑模型時使用的本機 REST 介面，預設監聽 11434 埠。',
+    embed: false, url: 'https://docs.ollama.com/api/', site: 'https://ollama.com' },
 
   { id: 'vllm', cat: 'ai', icon: '⚡', name: 'vLLM API',
     zh: 'vLLM 推論服務', tags: ['LLM', '推論', 'OpenAI 相容'],
     desc: '以 PagedAttention 做高吞吐量 LLM 推論的服務框架，可直接開成 OpenAI 相容端點。',
-    embed: true, url: 'https://docs.vllm.ai/en/stable/', site: 'https://vllm.ai' },
+    embed: true, url: 'https://docs.vllm.ai/en/stable/api/', site: 'https://vllm.ai' },
 
   { id: 'matplotlib', cat: 'ai', icon: '📉', name: 'Matplotlib API',
     zh: 'Matplotlib 繪圖', tags: ['Python', '繪圖', 'pyplot'],
@@ -66,42 +71,11 @@ const APIS = [
     desc: '架在 Matplotlib 之上的統計繪圖介面，直接吃 DataFrame 畫出有預設美感的圖表。',
     embed: true, url: 'https://seaborn.pydata.org/api.html', site: 'https://seaborn.pydata.org' },
 
-  { id: 'streamlit', cat: 'ai', icon: '🎈', name: 'Streamlit API',
-    zh: 'Streamlit 資料應用', tags: ['Python', '資料應用', 'UI 元件'],
-    desc: '用純 Python 寫互動式資料應用，這頁列出所有 st.* 元件與快取、狀態相關 API。',
-    embed: false, url: 'https://docs.streamlit.io/develop/api-reference', site: 'https://streamlit.io' },
-
-
-  { id: 'langchain', cat: 'ai', icon: '🦜', name: 'LangChain Python API',
-    zh: 'LangChain 參考文件', tags: ['LLM', 'Chain', 'Agent'],
-    desc: '把 LLM 串成鏈與代理人的框架，這頁是各套件模組與類別的完整 API 索引。',
-    embed: true, url: 'https://python.langchain.com/api_reference', site: 'https://www.langchain.com' },
-
   /* ---------- 開發者平台 ---------- */
-  { id: 'java8', cat: 'dev', icon: '☕', name: 'Java SE 8 API',
-    zh: 'Java 8 Javadoc', tags: ['Java', 'Javadoc', '標準函式庫'],
-    desc: 'Java SE 8 標準函式庫的官方 Javadoc，含 Stream、Optional 與 java.time 等套件。',
-    embed: true, url: 'https://docs.oracle.com/javase/8/docs/api/', site: 'https://www.oracle.com/java/' },
-
-  { id: 'java11', cat: 'dev', icon: '☕', name: 'Java SE 11 API',
-    zh: 'Java 11 Javadoc', tags: ['Java', 'LTS', 'HttpClient'],
-    desc: '第一個被廣泛採用的 LTS 版本，內建 java.net.http 的 HttpClient 取代舊的 HttpURLConnection。',
-    embed: true, url: 'https://docs.oracle.com/en/java/javase/11/docs/api/index.html', site: 'https://www.oracle.com/java/' },
-
-  { id: 'java17', cat: 'dev', icon: '☕', name: 'Java SE 17 API',
-    zh: 'Java 17 Javadoc', tags: ['Java', 'LTS', 'Record'],
-    desc: '目前企業環境最常見的 LTS 版本，含 record、sealed 類別與強化版 switch 相關 API。',
-    embed: true, url: 'https://docs.oracle.com/en/java/javase/17/docs/api/index.html', site: 'https://www.oracle.com/java/' },
-
-  { id: 'java21', cat: 'dev', icon: '☕', name: 'Java SE 21 API',
-    zh: 'Java 21 Javadoc', tags: ['Java', 'LTS', '虛擬執行緒'],
-    desc: '較新的 LTS 版本，虛擬執行緒與 SequencedCollection 等新標準 API 都在這一版。',
-    embed: true, url: 'https://docs.oracle.com/en/java/javase/21/docs/api/index.html', site: 'https://www.oracle.com/java/' },
-
-  { id: 'python', cat: 'dev', icon: '🐍', name: 'Python 3.11 API',
-    zh: 'Python 3.11 官方文件', tags: ['Python', '標準函式庫', '內建模組'],
-    desc: 'Python 3.11 內建模組的官方參考，型別、檔案 IO、並行與網路模組都收在這裡。',
-    embed: true, url: 'https://docs.python.org/3.11/library/index.html', site: 'https://www.python.org' },
+  { id: 'python', cat: 'dev', icon: '🐍', name: 'Python 3 API',
+    zh: 'Python 3 官方文件', tags: ['Python', '標準函式庫', '內建模組'],
+    desc: 'Python 3 內建模組的官方參考，型別、檔案 IO、並行與網路模組都收在這裡。',
+    embed: true, url: 'https://docs.python.org/3/library/index.html', site: 'https://www.python.org' },
 
   { id: 'fastapi', cat: 'dev', icon: '🚀', name: 'FastAPI Reference',
     zh: 'FastAPI 參考文件', tags: ['Python', 'ASGI', 'OpenAPI'],
@@ -118,10 +92,35 @@ const APIS = [
     desc: 'Django 各模組的參考文件，含 ORM 查詢、表單、模板標籤與 settings 設定項。',
     embed: false, url: 'https://docs.djangoproject.com/en/6.1/ref/', site: 'https://www.djangoproject.com' },
 
-  { id: 'spring', cat: 'dev', icon: '🌱', name: 'Spring Framework Reference',
-    zh: 'Spring 框架文件', tags: ['Java', 'DI', 'Spring Boot'],
-    desc: 'Java 後端的主流框架，涵蓋依賴注入、AOP、交易與 Web MVC 的官方參考手冊。',
-    embed: true, url: 'https://docs.spring.io/spring-framework/reference/index.html', site: 'https://spring.io' },
+  { id: 'streamlit', cat: 'ai', icon: '🎈', name: 'Streamlit API',
+    zh: 'Streamlit 資料應用', tags: ['Python', '資料應用', 'UI 元件'],
+    desc: '用純 Python 寫互動式資料應用，這頁列出所有 st.* 元件與快取、狀態相關 API。',
+    embed: false, url: 'https://docs.streamlit.io/develop/api-reference', site: 'https://streamlit.io' },
+
+  { id: 'java24', cat: 'dev', icon: '☕', name: 'Java SE 24 Docs',
+    zh: 'Java 24 Javadoc', tags: ['Java', 'LTS', '虛擬執行緒'],
+    desc: '較新的 LTS 版本，虛擬執行緒與 SequencedCollection 等新標準 API 都在這一版。',
+    embed: true, url: 'https://docs.oracle.com/en/java/javase/24/docs/api/index.html', site: 'https://www.oracle.com/java/' },
+
+  { id: 'spring-framework', cat: 'dev', icon: '🌿', name: 'Spring Framework 7.0 API',
+    zh: 'Spring Framework Javadoc', tags: ['Java', 'IoC', 'AOP'],
+    desc: '7.0.8 版的完整 Javadoc，Bean 容器、AOP、事務與 WebFlux 的類別與介面說明。',
+    embed: true, url: 'https://docs.spring.io/spring-framework/docs/7.0.8/javadoc-api/', site: 'https://spring.io/projects/spring-framework' },
+
+  { id: 'spring-boot', cat: 'dev', icon: '🥾', name: 'Spring Boot 4.1 API',
+    zh: 'Spring Boot Javadoc', tags: ['Java', '自動組態', 'Starter'],
+    desc: '自動組態類別、@ConfigurationProperties 設定項與 Actuator 端點的 Javadoc。',
+    embed: true, url: 'https://docs.spring.io/spring-boot/api/java/index.html', site: 'https://spring.io/projects/spring-boot' },
+
+  { id: 'spring-security', cat: 'dev', icon: '🔐', name: 'Spring Security 7.1 API',
+    zh: 'Spring Security Javadoc', tags: ['Java', '驗證授權', 'OAuth 2.0'],
+    desc: '驗證與授權框架的 Javadoc，含 SecurityFilterChain、OAuth2 與方法層級權限。',
+    embed: true, url: 'https://docs.spring.io/spring-security/reference/api/java/index.html', site: 'https://spring.io/projects/spring-security' },
+
+  { id: 'spring-data', cat: 'dev', icon: '🗃️', name: 'Spring Data Core 4.1 API',
+    zh: 'Spring Data Commons Javadoc', tags: ['Java', 'Repository', '分頁排序'],
+    desc: '各 Spring Data 模組共用的核心型別：Repository、Pageable、Sort 與查詢衍生規則。',
+    embed: true, url: 'https://docs.spring.io/spring-data/commons/reference/api/java/', site: 'https://spring.io/projects/spring-data' },
 
   { id: 'maven', cat: 'dev', icon: '🏗️', name: 'Apache Maven Guides',
     zh: 'Maven 建置工具', tags: ['Java', '建置', 'POM'],

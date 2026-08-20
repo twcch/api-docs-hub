@@ -13,8 +13,8 @@
    ============================================================ */
 
 const CATEGORIES = [
-  { id: 'ai',    name: 'AI 與大型語言模型', icon: '🧠', accent: '#8b7cff' },
-  { id: 'dev',   name: '開發者平台',        icon: '⚙️', accent: '#5fb3f5' },
+  { id: 'ai',    name: '人工智慧', icon: '🧠', accent: '#8b7cff' },
+  { id: 'dev',   name: '開發平台',        icon: '⚙️', accent: '#5fb3f5' },
   { id: 'pay',   name: '金流與支付',        icon: '💳', accent: '#5ac8a8' },
   { id: 'msg',   name: '通訊與社群',        icon: '💬', accent: '#4ecb71' },
   { id: 'cloud', name: '雲端與資料庫',      icon: '☁️', accent: '#f2a35e' },
@@ -35,6 +35,47 @@ const APIS = [
     zh: 'Ollama 本機模型', tags: ['本機部署', 'localhost', '開源'],
     desc: '在自己電腦上跑模型時使用的本機 REST 介面，預設監聽 11434 埠。',
     embed: false, url: 'https://docs.ollama.com/api/', site: 'https://ollama.com' },
+
+  { id: 'pytorch', cat: 'ai', icon: '🔥', name: 'PyTorch API',
+    zh: 'PyTorch 深度學習', tags: ['Python', '深度學習', 'Tensor'],
+    desc: '張量運算、autograd、nn 模組與訓練相關 API 的完整參考，研究圈的主流框架。',
+    embed: true, url: 'https://docs.pytorch.org/docs/stable/index.html', site: 'https://pytorch.org' },
+
+  { id: 'tensorflow', cat: 'ai', icon: '🟧', name: 'TensorFlow API',
+    zh: 'TensorFlow / Keras', tags: ['Python', 'Keras', '深度學習'],
+    desc: 'tf 命名空間下所有模組與 Keras 高階介面的 Python API 文件。',
+    embed: false, url: 'https://www.tensorflow.org/api_docs/python/tf', site: 'https://www.tensorflow.org' },
+
+  { id: 'sklearn', cat: 'ai', icon: '🧮', name: 'scikit-learn API',
+    zh: 'scikit-learn 機器學習', tags: ['Python', '機器學習', 'Estimator'],
+    desc: '傳統機器學習的標準工具箱，分類、迴歸、分群與前處理都走同一套 fit/predict 介面。',
+    embed: true, url: 'https://scikit-learn.org/stable/api/index.html', site: 'https://scikit-learn.org' },
+
+  { id: 'vllm', cat: 'ai', icon: '⚡', name: 'vLLM API',
+    zh: 'vLLM 推論服務', tags: ['LLM', '推論', 'OpenAI 相容'],
+    desc: '以 PagedAttention 做高吞吐量 LLM 推論的服務框架，可直接開成 OpenAI 相容端點。',
+    embed: true, url: 'https://docs.vllm.ai/en/stable/', site: 'https://vllm.ai' },
+
+  { id: 'matplotlib', cat: 'ai', icon: '📉', name: 'Matplotlib API',
+    zh: 'Matplotlib 繪圖', tags: ['Python', '繪圖', 'pyplot'],
+    desc: 'Python 繪圖的基礎函式庫，pyplot、Figure 與 Axes 各層級的完整 API 索引。',
+    embed: false, url: 'https://matplotlib.org/stable/api/index.html', site: 'https://matplotlib.org' },
+
+  { id: 'seaborn', cat: 'ai', icon: '🌊', name: 'seaborn API',
+    zh: 'seaborn 統計繪圖', tags: ['Python', '統計圖表', 'DataFrame'],
+    desc: '架在 Matplotlib 之上的統計繪圖介面，直接吃 DataFrame 畫出有預設美感的圖表。',
+    embed: true, url: 'https://seaborn.pydata.org/api.html', site: 'https://seaborn.pydata.org' },
+
+  { id: 'streamlit', cat: 'ai', icon: '🎈', name: 'Streamlit API',
+    zh: 'Streamlit 資料應用', tags: ['Python', '資料應用', 'UI 元件'],
+    desc: '用純 Python 寫互動式資料應用，這頁列出所有 st.* 元件與快取、狀態相關 API。',
+    embed: false, url: 'https://docs.streamlit.io/develop/api-reference', site: 'https://streamlit.io' },
+
+
+  { id: 'langchain', cat: 'ai', icon: '🦜', name: 'LangChain Python API',
+    zh: 'LangChain 參考文件', tags: ['LLM', 'Chain', 'Agent'],
+    desc: '把 LLM 串成鏈與代理人的框架，這頁是各套件模組與類別的完整 API 索引。',
+    embed: true, url: 'https://python.langchain.com/api_reference', site: 'https://www.langchain.com' },
 
   /* ---------- 開發者平台 ---------- */
   { id: 'java8', cat: 'dev', icon: '☕', name: 'Java SE 8 API',
@@ -76,6 +117,31 @@ const APIS = [
     zh: 'Django 文件', tags: ['Python', 'ORM', '全功能框架'],
     desc: 'Django 各模組的參考文件，含 ORM 查詢、表單、模板標籤與 settings 設定項。',
     embed: false, url: 'https://docs.djangoproject.com/en/6.1/ref/', site: 'https://www.djangoproject.com' },
+
+  { id: 'spring', cat: 'dev', icon: '🌱', name: 'Spring Framework Reference',
+    zh: 'Spring 框架文件', tags: ['Java', 'DI', 'Spring Boot'],
+    desc: 'Java 後端的主流框架，涵蓋依賴注入、AOP、交易與 Web MVC 的官方參考手冊。',
+    embed: true, url: 'https://docs.spring.io/spring-framework/reference/index.html', site: 'https://spring.io' },
+
+  { id: 'maven', cat: 'dev', icon: '🏗️', name: 'Apache Maven Guides',
+    zh: 'Maven 建置工具', tags: ['Java', '建置', 'POM'],
+    desc: 'Java 專案的建置與相依管理工具，官方指南含 POM 欄位與生命週期說明。',
+    embed: false, url: 'https://maven.apache.org/guides/index.html', site: 'https://maven.apache.org' },
+
+  { id: 'react', cat: 'dev', icon: '⚛️', name: 'React Reference',
+    zh: 'React 官方文件', tags: ['前端', 'Hook', 'Component'],
+    desc: 'React 的 API 參考，Hook、元件與 react-dom 的行為與參數都在這一區。',
+    embed: true, url: 'https://react.dev/reference/react', site: 'https://react.dev' },
+
+  { id: 'vue', cat: 'dev', icon: '💚', name: 'Vue 3 API',
+    zh: 'Vue.js 官方文件', tags: ['前端', 'Composition API', 'SFC'],
+    desc: 'Vue 3 的完整 API 列表，含 Composition API、內建元件與響應式工具函式。',
+    embed: false, url: 'https://vuejs.org/api/', site: 'https://vuejs.org' },
+
+  { id: 'bootstrap', cat: 'dev', icon: '🅱️', name: 'Bootstrap 5.3 文件',
+    zh: 'Bootstrap 前端框架', tags: ['CSS', '元件', 'RWD'],
+    desc: '最普及的 CSS 框架，格線系統、元件與工具類別的用法與範例都在這裡。',
+    embed: true, url: 'https://getbootstrap.com/docs/5.3/getting-started/introduction/', site: 'https://getbootstrap.com' },
 
   /* ---------- 金流 ---------- */
   { id: 'stripe', cat: 'pay', icon: '💠', name: 'Stripe API',
@@ -169,6 +235,26 @@ const APIS = [
     zh: 'Google 雲端硬碟', tags: ['檔案', 'OAuth 2.0', '權限'],
     desc: '上傳下載檔案、管理資料夾與共用權限，需走 Google OAuth 授權。',
     embed: false, url: 'https://developers.google.com/drive/api/reference/rest/v3', site: 'https://drive.google.com' },
+
+  { id: 'postgres', cat: 'cloud', icon: '🐘', name: 'PostgreSQL 文件',
+    zh: 'PostgreSQL 手冊', tags: ['SQL', '關聯式', '開源'],
+    desc: '功能最完整的開源關聯式資料庫，SQL 語法、型別、索引與設定參數的官方手冊。',
+    embed: false, url: 'https://www.postgresql.org/docs/current/', site: 'https://www.postgresql.org' },
+
+  { id: 'mysql', cat: 'cloud', icon: '🐬', name: 'MySQL 8.4 Reference Manual',
+    zh: 'MySQL 手冊', tags: ['SQL', '關聯式', 'InnoDB'],
+    desc: '最常見的關聯式資料庫之一，8.4 LTS 版的語法、儲存引擎與複寫設定參考。',
+    embed: false, url: 'https://dev.mysql.com/doc/refman/8.4/en/', site: 'https://www.mysql.com' },
+
+  { id: 'mongodb', cat: 'cloud', icon: '🍃', name: 'MongoDB Reference',
+    zh: 'MongoDB 手冊', tags: ['NoSQL', '文件導向', 'Aggregation'],
+    desc: '文件導向資料庫的參考文件，含查詢運算子、聚合管線與索引設定。',
+    embed: true, url: 'https://www.mongodb.com/docs/manual/reference/', site: 'https://www.mongodb.com' },
+
+  { id: 'redis', cat: 'cloud', icon: '🟥', name: 'Redis Commands',
+    zh: 'Redis 指令參考', tags: ['快取', 'Key-Value', '記憶體'],
+    desc: '記憶體型資料庫的完整指令列表，每個指令都標了時間複雜度與可用版本。',
+    embed: true, url: 'https://redis.io/docs/latest/commands/', site: 'https://redis.io' },
 
   /* ---------- 地圖天氣 ---------- */
   { id: 'gmaps', cat: 'geo', icon: '📍', name: 'Google Maps Platform',

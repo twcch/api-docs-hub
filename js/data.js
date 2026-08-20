@@ -112,6 +112,41 @@ const APIS = [
     desc: 'Java SE 8 標準函式庫的官方 Javadoc，含 Stream、Optional 與 java.time 等套件。',
     embed: true, url: 'https://docs.oracle.com/javase/8/docs/api/', site: 'https://www.oracle.com/java/' },
 
+  { id: 'java11', cat: 'dev', icon: '☕', name: 'Java SE 11 API 文件',
+    zh: 'Java 11 Javadoc', tags: ['Java', 'LTS', 'HttpClient'],
+    desc: '第一個被廣泛採用的 LTS 版本，內建 java.net.http 的 HttpClient 取代舊的 HttpURLConnection。',
+    embed: true, url: 'https://docs.oracle.com/en/java/javase/11/docs/api/index.html', site: 'https://www.oracle.com/java/' },
+
+  { id: 'java17', cat: 'dev', icon: '☕', name: 'Java SE 17 API 文件',
+    zh: 'Java 17 Javadoc', tags: ['Java', 'LTS', 'Record'],
+    desc: '目前企業環境最常見的 LTS 版本，含 record、sealed 類別與強化版 switch 相關 API。',
+    embed: true, url: 'https://docs.oracle.com/en/java/javase/17/docs/api/index.html', site: 'https://www.oracle.com/java/' },
+
+  { id: 'java21', cat: 'dev', icon: '☕', name: 'Java SE 21 API 文件',
+    zh: 'Java 21 Javadoc', tags: ['Java', 'LTS', '虛擬執行緒'],
+    desc: '較新的 LTS 版本，虛擬執行緒與 SequencedCollection 等新標準 API 都在這一版。',
+    embed: true, url: 'https://docs.oracle.com/en/java/javase/21/docs/api/index.html', site: 'https://www.oracle.com/java/' },
+
+  { id: 'python', cat: 'dev', icon: '🐍', name: 'Python 標準函式庫',
+    zh: 'Python 3.11 官方文件', tags: ['Python', '標準函式庫', '內建模組'],
+    desc: 'Python 3.11 內建模組的官方參考，型別、檔案 IO、並行與網路模組都收在這裡。',
+    embed: true, url: 'https://docs.python.org/3.11/library/index.html', site: 'https://www.python.org' },
+
+  { id: 'fastapi', cat: 'dev', icon: '🚀', name: 'FastAPI Reference',
+    zh: 'FastAPI 參考文件', tags: ['Python', 'ASGI', 'OpenAPI'],
+    desc: '用型別註記自動產生 OpenAPI 規格的非同步框架，這頁列出各類別與函式的簽章。',
+    embed: true, url: 'https://fastapi.tiangolo.com/reference/', site: 'https://fastapi.tiangolo.com' },
+
+  { id: 'flask', cat: 'dev', icon: '🍶', name: 'Flask API Reference',
+    zh: 'Flask 微框架', tags: ['Python', 'WSGI', 'Blueprint'],
+    desc: 'Flask 的 API 參考，涵蓋 app、request、blueprint 與 context 相關物件。',
+    embed: true, url: 'https://flask.palletsprojects.com/en/stable/api/', site: 'https://flask.palletsprojects.com' },
+
+  { id: 'django', cat: 'dev', icon: '🎸', name: 'Django API Reference',
+    zh: 'Django 文件', tags: ['Python', 'ORM', '全功能框架'],
+    desc: 'Django 各模組的參考文件，含 ORM 查詢、表單、模板標籤與 settings 設定項。',
+    embed: false, url: 'https://docs.djangoproject.com/en/stable/ref/', site: 'https://www.djangoproject.com' },
+
   /* ---------- 金流 ---------- */
   { id: 'stripe', cat: 'pay', icon: '💠', name: 'Stripe API',
     zh: 'Stripe 金流', tags: ['付款', '訂閱', 'Webhook'],
